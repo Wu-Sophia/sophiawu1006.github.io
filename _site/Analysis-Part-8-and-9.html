@@ -1,0 +1,860 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="Sophia Wu" />
+
+
+<title>DDS Group beer analysis for Q8 and Q9</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">My Website</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="About.html">About</a>
+</li>
+<li>
+  <a href="Analysis Part 8 and 9.html">Beer Analysis Part 8</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">DDS Group beer analysis for Q8 and Q9</h1>
+<h4 class="author">Sophia Wu</h4>
+<h4 class="date">7/4/2020</h4>
+
+</div>
+
+
+<p>Note that the <code>echo = FALSE</code> parameter was added to the code chunk to prevent printing of the R code that generated the plot. # Data Analysis for questions 8 and 9</p>
+<pre><code>## ── Attaching packages ─────────────────────────────────────────────────── tidyverse 1.3.0 ──</code></pre>
+<pre><code>## ✓ ggplot2 3.3.2     ✓ purrr   0.3.4
+## ✓ tibble  3.0.1     ✓ dplyr   1.0.0
+## ✓ tidyr   1.1.0     ✓ stringr 1.4.0
+## ✓ readr   1.3.1     ✓ forcats 0.5.0</code></pre>
+<pre><code>## ── Conflicts ────────────────────────────────────────────────────── tidyverse_conflicts() ──
+## x dplyr::filter() masks stats::filter()
+## x dplyr::lag()    masks stats::lag()</code></pre>
+<pre><code>## 
+## Attaching package: &#39;kableExtra&#39;</code></pre>
+<pre><code>## The following object is masked from &#39;package:dplyr&#39;:
+## 
+##     group_rows</code></pre>
+<pre class="r"><code>beers2 &lt;- beers
+colnames(beers2)</code></pre>
+<pre><code>## [1] &quot;Name&quot;       &quot;Beer_ID&quot;    &quot;ABV&quot;        &quot;IBU&quot;        &quot;Brewery_id&quot;
+## [6] &quot;Style&quot;      &quot;Ounces&quot;</code></pre>
+<pre class="r"><code>names(beers2) &lt;- c(&quot;beername&quot;, &quot;beerID&quot;, &quot;beerABV&quot;, &quot;beerIBU&quot;, &quot;beer.brewery.id&quot;, &quot;beerstyle&quot;, &quot;beerOunce&quot;)
+head(beers2)</code></pre>
+<pre><code>##              beername beerID beerABV beerIBU beer.brewery.id
+## 1            Pub Beer   1436   0.050      NA             409
+## 2         Devil&#39;s Cup   2265   0.066      NA             178
+## 3 Rise of the Phoenix   2264   0.071      NA             178
+## 4            Sinister   2263   0.090      NA             178
+## 5       Sex and Candy   2262   0.075      NA             178
+## 6        Black Exodus   2261   0.077      NA             178
+##                        beerstyle beerOunce
+## 1            American Pale Lager        12
+## 2        American Pale Ale (APA)        12
+## 3                   American IPA        12
+## 4 American Double / Imperial IPA        12
+## 5                   American IPA        12
+## 6                  Oatmeal Stout        12</code></pre>
+<pre class="r"><code>brew2 &lt;- breweries
+colnames(brew2)</code></pre>
+<pre><code>## [1] &quot;Brew_ID&quot; &quot;Name&quot;    &quot;City&quot;    &quot;State&quot;</code></pre>
+<pre class="r"><code>names(brew2) &lt;- c(&quot;brewery.id&quot;, &quot;brewery.name&quot;, &quot;brewery.city&quot;, &quot;brewery.state.abb&quot;)
+
+brew2 &lt;- brew2 %&gt;%
+  mutate(brewery.state.abb = trimws(brewery.state.abb))
+
+head(brew2)</code></pre>
+<pre><code>##   brewery.id              brewery.name  brewery.city brewery.state.abb
+## 1          1        NorthGate Brewing    Minneapolis                MN
+## 2          2 Against the Grain Brewery    Louisville                KY
+## 3          3  Jack&#39;s Abby Craft Lagers    Framingham                MA
+## 4          4 Mike Hess Brewing Company     San Diego                CA
+## 5          5   Fort Point Beer Company San Francisco                CA
+## 6          6     COAST Brewing Company    Charleston                SC</code></pre>
+<p>#Insert State name and region</p>
+<pre class="r"><code>#makes a data frame with State abbreviation, name  and region
+stateinf= data.frame(state.abb, state.name, state.region, state.x77, stringsAsFactors=FALSE) 
+head(stateinf[1:5])</code></pre>
+<pre><code>##            state.abb state.name state.region Population Income
+## Alabama           AL    Alabama        South       3615   3624
+## Alaska            AK     Alaska         West        365   6315
+## Arizona           AZ    Arizona         West       2212   4530
+## Arkansas          AR   Arkansas        South       2110   3378
+## California        CA California         West      21198   5114
+## Colorado          CO   Colorado         West       2541   4884</code></pre>
+<p>#Merge data brew2 with data stateinf and calculate breweries numbers are present in each state</p>
+<pre class="r"><code>brewstate&lt;- merge(brew2, stateinf[1:5], by.x = &quot;brewery.state.abb&quot;, by.y = &quot;state.abb&quot;, all.x = TRUE)
+
+head(brewstate)</code></pre>
+<pre><code>##   brewery.state.abb brewery.id                  brewery.name brewery.city
+## 1                AK        494  Broken Tooth Brewing Company    Anchorage
+## 2                AK        224  Midnight Sun Brewing Company    Anchorage
+## 3                AK        459   Kenai River Brewing Company     Soldotna
+## 4                AK        454        Denali Brewing Company    Talkeetna
+## 5                AK        558 Sleeping Lady Brewing Company    Anchorage
+## 6                AK        271       Alaskan Brewing Company       Juneau
+##   state.name state.region Population Income
+## 1     Alaska         West        365   6315
+## 2     Alaska         West        365   6315
+## 3     Alaska         West        365   6315
+## 4     Alaska         West        365   6315
+## 5     Alaska         West        365   6315
+## 6     Alaska         West        365   6315</code></pre>
+<pre class="r"><code>beermerged &lt;- merge(beers2, brewstate, by.x = &quot;beer.brewery.id&quot;, by.y = &quot;brewery.id&quot;)</code></pre>
+<pre class="r"><code>beermerged$beeripaale&lt;- &#39;&#39;
+
+head(beermerged)</code></pre>
+<pre><code>##   beer.brewery.id      beername beerID beerABV beerIBU
+## 1               1  Get Together   2692   0.045      50
+## 2               1 Maggie&#39;s Leap   2691   0.049      26
+## 3               1    Wall&#39;s End   2690   0.048      19
+## 4               1       Pumpion   2689   0.060      38
+## 5               1    Stronghold   2688   0.060      25
+## 6               1   Parapet ESB   2687   0.056      47
+##                             beerstyle beerOunce brewery.state.abb
+## 1                        American IPA        16                MN
+## 2                  Milk / Sweet Stout        16                MN
+## 3                   English Brown Ale        16                MN
+## 4                         Pumpkin Ale        16                MN
+## 5                     American Porter        16                MN
+## 6 Extra Special / Strong Bitter (ESB)        16                MN
+##         brewery.name brewery.city state.name  state.region Population Income
+## 1 NorthGate Brewing   Minneapolis  Minnesota North Central       3921   4675
+## 2 NorthGate Brewing   Minneapolis  Minnesota North Central       3921   4675
+## 3 NorthGate Brewing   Minneapolis  Minnesota North Central       3921   4675
+## 4 NorthGate Brewing   Minneapolis  Minnesota North Central       3921   4675
+## 5 NorthGate Brewing   Minneapolis  Minnesota North Central       3921   4675
+## 6 NorthGate Brewing   Minneapolis  Minnesota North Central       3921   4675
+##   beeripaale
+## 1           
+## 2           
+## 3           
+## 4           
+## 5           
+## 6</code></pre>
+<pre class="r"><code>#Get all different beers styles&#39; numbers
+beermerged %&gt;%count(beerstyle)</code></pre>
+<pre><code>##                               beerstyle   n
+## 1                                         5
+## 2                      Abbey Single Ale   2
+## 3                               Altbier  13
+## 4                American Adjunct Lager  18
+## 5              American Amber / Red Ale 133
+## 6            American Amber / Red Lager  29
+## 7                   American Barleywine   3
+## 8                    American Black Ale  36
+## 9                   American Blonde Ale 108
+## 10                   American Brown Ale  70
+## 11              American Dark Wheat Ale   7
+## 12       American Double / Imperial IPA 105
+## 13   American Double / Imperial Pilsner   2
+## 14     American Double / Imperial Stout   9
+## 15            American India Pale Lager   3
+## 16                         American IPA 424
+## 17                 American Malt Liquor   1
+## 18              American Pale Ale (APA) 245
+## 19                  American Pale Lager  39
+## 20              American Pale Wheat Ale  97
+## 21                     American Pilsner  25
+## 22                      American Porter  68
+## 23                       American Stout  39
+## 24                  American Strong Ale  14
+## 25                   American White IPA  11
+## 26                    American Wild Ale   6
+## 27                        Baltic Porter   6
+## 28                     Belgian Dark Ale  11
+## 29                          Belgian IPA  18
+## 30                     Belgian Pale Ale  24
+## 31              Belgian Strong Dark Ale   6
+## 32              Belgian Strong Pale Ale   7
+## 33                   Berliner Weissbier  11
+## 34                       Bière de Garde   7
+## 35                                 Bock   7
+## 36                              Braggot   1
+## 37       California Common / Steam Beer   6
+## 38                           Chile Beer   3
+## 39                                Cider  37
+## 40                            Cream Ale  29
+## 41                       Czech Pilsener  28
+## 42                           Doppelbock   7
+## 43            Dortmunder / Export Lager   6
+## 44                               Dubbel   5
+## 45                         Dunkelweizen   4
+## 46                   English Barleywine   3
+## 47                       English Bitter   3
+## 48                    English Brown Ale  18
+## 49                English Dark Mild Ale   6
+## 50         English India Pale Ale (IPA)  13
+## 51                     English Pale Ale  12
+## 52                English Pale Mild Ale   3
+## 53                        English Stout   2
+## 54                   English Strong Ale   4
+## 55                      Euro Dark Lager   5
+## 56                      Euro Pale Lager   2
+## 57  Extra Special / Strong Bitter (ESB)  20
+## 58                   Flanders Oud Bruin   1
+## 59                     Flanders Red Ale   1
+## 60               Foreign / Export Stout   6
+## 61               Fruit / Vegetable Beer  49
+## 62                      German Pilsener  36
+## 63                                 Gose  10
+## 64                             Grisette   1
+## 65                           Hefeweizen  40
+## 66                 Herbed / Spiced Beer   9
+## 67                      Irish Dry Stout   5
+## 68                        Irish Red Ale  12
+## 69           Keller Bier / Zwickel Bier   3
+## 70                               Kölsch  42
+## 71                        Kristalweizen   1
+## 72                          Light Lager  12
+## 73                     Low Alcohol Beer   1
+## 74                Maibock / Helles Bock   5
+## 75                 Märzen / Oktoberfest  30
+## 76                                 Mead   5
+## 77                   Milk / Sweet Stout  10
+## 78                  Munich Dunkel Lager   4
+## 79                  Munich Helles Lager  20
+## 80                        Oatmeal Stout  18
+## 81                              Old Ale   2
+## 82                                Other   1
+## 83                          Pumpkin Ale  23
+## 84                     Quadrupel (Quad)   4
+## 85                               Radler   3
+## 86                            Rauchbier   2
+## 87                           Roggenbier   2
+## 88               Russian Imperial Stout  11
+## 89                             Rye Beer  18
+## 90               Saison / Farmhouse Ale  52
+## 91                          Schwarzbier   9
+## 92               Scotch Ale / Wee Heavy  15
+## 93                         Scottish Ale  19
+## 94                               Shandy   3
+## 95                          Smoked Beer   1
+## 96                               Tripel  11
+## 97                         Vienna Lager  20
+## 98                            Wheat Ale   1
+## 99                        Winter Warmer  15
+## 100                             Witbier  51</code></pre>
+<pre class="r"><code>#filter missing value
+beermerged %&gt;%
+  filter(beerstyle == &#39;&#39;)</code></pre>
+<pre><code>##   beer.brewery.id                       beername beerID beerABV beerIBU
+## 1              30                Special Release   2210      NA      NA
+## 2              67                  OktoberFiesta   2527   0.053      27
+## 3             161 Kilt Lifter Scottish-Style Ale   1635   0.060      21
+## 4             167                   The CROWLER™   1796      NA      NA
+## 5             167           CAN&#39;D AID Foundation   1790      NA      NA
+##   beerstyle beerOunce brewery.state.abb               brewery.name brewery.city
+## 1                  16                TX        Cedar Creek Brewery Seven Points
+## 2                  12                TX   Freetail Brewing Company  San Antonio
+## 3                  12                AZ Four Peaks Brewing Company        Tempe
+## 4                  32                CO        Oskar Blues Brewery     Longmont
+## 5                  12                CO        Oskar Blues Brewery     Longmont
+##   state.name state.region Population Income beeripaale
+## 1      Texas        South      12237   4188           
+## 2      Texas        South      12237   4188           
+## 3    Arizona         West       2212   4530           
+## 4   Colorado         West       2541   4884           
+## 5   Colorado         West       2541   4884</code></pre>
+<pre class="r"><code>beermerged %&gt;%
+  filter(beerstyle %in% c(&quot;American Double / Imperial IPA&quot;, &quot;American IPA&quot;, &quot;Belgian IPA&quot;, &quot;English India Pale Ale (IPA)&quot;)) %&gt;%
+  count(beerstyle)</code></pre>
+<pre><code>##                        beerstyle   n
+## 1 American Double / Imperial IPA 105
+## 2                   American IPA 424
+## 3                    Belgian IPA  18
+## 4   English India Pale Ale (IPA)  13</code></pre>
+<pre class="r"><code>beeripa &lt;- beermerged %&gt;%
+  filter(beerstyle %in% c(&quot;American Double / Imperial IPA&quot;, &quot;American IPA&quot;, &quot;Belgian IPA&quot;, &quot;English India Pale Ale (IPA)&quot;)) %&gt;%
+  mutate(beeripaale= &#39;IPA&#39;)
+head(beeripa)</code></pre>
+<pre><code>##   beer.brewery.id       beername beerID beerABV beerIBU
+## 1               1   Get Together   2692   0.045      50
+## 2               2 Citra Ass Down   2686   0.080      68
+## 3               2    Rico Sauvin   2678   0.076      68
+## 4               2   Pile of Face   2675   0.060      65
+## 5               4 Habitus (2014)   2668   0.080     100
+## 6               4          Solis   2667   0.075      85
+##                        beerstyle beerOunce brewery.state.abb
+## 1                   American IPA        16                MN
+## 2 American Double / Imperial IPA        16                KY
+## 3 American Double / Imperial IPA        16                KY
+## 4                   American IPA        16                KY
+## 5 American Double / Imperial IPA        16                CA
+## 6                   American IPA        16                CA
+##                brewery.name brewery.city state.name  state.region Population
+## 1        NorthGate Brewing   Minneapolis  Minnesota North Central       3921
+## 2 Against the Grain Brewery   Louisville   Kentucky         South       3387
+## 3 Against the Grain Brewery   Louisville   Kentucky         South       3387
+## 4 Against the Grain Brewery   Louisville   Kentucky         South       3387
+## 5 Mike Hess Brewing Company    San Diego California          West      21198
+## 6 Mike Hess Brewing Company    San Diego California          West      21198
+##   Income beeripaale
+## 1   4675        IPA
+## 2   3712        IPA
+## 3   3712        IPA
+## 4   3712        IPA
+## 5   5114        IPA
+## 6   5114        IPA</code></pre>
+<pre class="r"><code># Kilt Lifter Scottish-Style Ale (1635)
+beermerged[946,]</code></pre>
+<pre><code>##     beer.brewery.id                       beername beerID beerABV beerIBU
+## 946             161 Kilt Lifter Scottish-Style Ale   1635    0.06      21
+##     beerstyle beerOunce brewery.state.abb               brewery.name
+## 946                  12                AZ Four Peaks Brewing Company
+##     brewery.city state.name state.region Population Income beeripaale
+## 946        Tempe    Arizona         West       2212   4530</code></pre>
+<pre class="r"><code>beermerged %&gt;%
+  filter(!beerstyle %in% c(&quot;American Double / Imperial IPA&quot;, &quot;American IPA&quot;, &quot;Belgian IPA&quot;, &quot;English India Pale Ale (IPA)&quot;)) %&gt;%
+  filter(str_detect(beerstyle, &quot;Ale&quot;) |  beerID==1635) %&gt;%
+  count(beerstyle)</code></pre>
+<pre><code>##                   beerstyle   n
+## 1                             1
+## 2          Abbey Single Ale   2
+## 3  American Amber / Red Ale 133
+## 4        American Black Ale  36
+## 5       American Blonde Ale 108
+## 6        American Brown Ale  70
+## 7   American Dark Wheat Ale   7
+## 8   American Pale Ale (APA) 245
+## 9   American Pale Wheat Ale  97
+## 10      American Strong Ale  14
+## 11        American Wild Ale   6
+## 12         Belgian Dark Ale  11
+## 13         Belgian Pale Ale  24
+## 14  Belgian Strong Dark Ale   6
+## 15  Belgian Strong Pale Ale   7
+## 16                Cream Ale  29
+## 17        English Brown Ale  18
+## 18    English Dark Mild Ale   6
+## 19         English Pale Ale  12
+## 20    English Pale Mild Ale   3
+## 21       English Strong Ale   4
+## 22         Flanders Red Ale   1
+## 23            Irish Red Ale  12
+## 24                  Old Ale   2
+## 25              Pumpkin Ale  23
+## 26   Saison / Farmhouse Ale  52
+## 27   Scotch Ale / Wee Heavy  15
+## 28             Scottish Ale  19
+## 29                Wheat Ale   1</code></pre>
+<pre class="r"><code>beerale &lt;- beermerged %&gt;%
+  filter(!beerstyle %in% c(&quot;American Double / Imperial IPA&quot;, &quot;American IPA&quot;, &quot;Belgian IPA&quot;, &quot;English India Pale Ale (IPA)&quot;)) %&gt;%
+  filter(str_detect(beerstyle, &quot;Ale&quot;) |beerID==1635) %&gt;%
+  mutate(beeripaale= &#39;Ale&#39;)
+
+head(beerale)</code></pre>
+<pre><code>##   beer.brewery.id         beername beerID beerABV beerIBU
+## 1               1       Wall&#39;s End   2690   0.048      19
+## 2               1          Pumpion   2689   0.060      38
+## 3               2           A Beer   2683   0.042      42
+## 4               2    Flesh Gourd&#39;n   2681   0.066      21
+## 5               2         Sho&#39;nuff   2680   0.040      13
+## 6               2 Coq de la Marche   2677   0.051      38
+##                 beerstyle beerOunce brewery.state.abb              brewery.name
+## 1       English Brown Ale        16                MN        NorthGate Brewing 
+## 2             Pumpkin Ale        16                MN        NorthGate Brewing 
+## 3 American Pale Ale (APA)        16                KY Against the Grain Brewery
+## 4             Pumpkin Ale        16                KY Against the Grain Brewery
+## 5        Belgian Pale Ale        16                KY Against the Grain Brewery
+## 6  Saison / Farmhouse Ale        16                KY Against the Grain Brewery
+##   brewery.city state.name  state.region Population Income beeripaale
+## 1  Minneapolis  Minnesota North Central       3921   4675        Ale
+## 2  Minneapolis  Minnesota North Central       3921   4675        Ale
+## 3   Louisville   Kentucky         South       3387   3712        Ale
+## 4   Louisville   Kentucky         South       3387   3712        Ale
+## 5   Louisville   Kentucky         South       3387   3712        Ale
+## 6   Louisville   Kentucky         South       3387   3712        Ale</code></pre>
+<pre class="r"><code>head(beermerged) %&gt;%
+  mutate(beer.style.words = as.character(str_split(beerstyle, boundary(&quot;word&quot;)))) %&gt;%
+  select(beer.style.words)</code></pre>
+<pre><code>##                                   beer.style.words
+## 1                             c(&quot;American&quot;, &quot;IPA&quot;)
+## 2                      c(&quot;Milk&quot;, &quot;Sweet&quot;, &quot;Stout&quot;)
+## 3                     c(&quot;English&quot;, &quot;Brown&quot;, &quot;Ale&quot;)
+## 4                              c(&quot;Pumpkin&quot;, &quot;Ale&quot;)
+## 5                          c(&quot;American&quot;, &quot;Porter&quot;)
+## 6 c(&quot;Extra&quot;, &quot;Special&quot;, &quot;Strong&quot;, &quot;Bitter&quot;, &quot;ESB&quot;)</code></pre>
+<pre class="r"><code># India Pale Ale
+IPA &lt;- c(&quot;American Double / Imperial IPA&quot;, &quot;American IPA&quot;, &quot;Belgian IPA&quot;, &quot;English India Pale Ale (IPA)&quot;)</code></pre>
+<pre class="r"><code>total_beers_count &lt;- dim(beermerged)[1]
+ipa_count &lt;- dim(beeripa)[1]
+ale_count &lt;- dim(beerale)[1]
+
+beercombined_ale &lt;- rbind(beeripa, beerale)
+
+ipa_ale_count &lt;- dim(beercombined_ale)[1]
+
+
+head(beercombined_ale)</code></pre>
+<pre><code>##   beer.brewery.id       beername beerID beerABV beerIBU
+## 1               1   Get Together   2692   0.045      50
+## 2               2 Citra Ass Down   2686   0.080      68
+## 3               2    Rico Sauvin   2678   0.076      68
+## 4               2   Pile of Face   2675   0.060      65
+## 5               4 Habitus (2014)   2668   0.080     100
+## 6               4          Solis   2667   0.075      85
+##                        beerstyle beerOunce brewery.state.abb
+## 1                   American IPA        16                MN
+## 2 American Double / Imperial IPA        16                KY
+## 3 American Double / Imperial IPA        16                KY
+## 4                   American IPA        16                KY
+## 5 American Double / Imperial IPA        16                CA
+## 6                   American IPA        16                CA
+##                brewery.name brewery.city state.name  state.region Population
+## 1        NorthGate Brewing   Minneapolis  Minnesota North Central       3921
+## 2 Against the Grain Brewery   Louisville   Kentucky         South       3387
+## 3 Against the Grain Brewery   Louisville   Kentucky         South       3387
+## 4 Against the Grain Brewery   Louisville   Kentucky         South       3387
+## 5 Mike Hess Brewing Company    San Diego California          West      21198
+## 6 Mike Hess Brewing Company    San Diego California          West      21198
+##   Income beeripaale
+## 1   4675        IPA
+## 2   3712        IPA
+## 3   3712        IPA
+## 4   3712        IPA
+## 5   5114        IPA
+## 6   5114        IPA</code></pre>
+<p><img src="Analysis-Part-8-and-9_files/figure-html/Boxplot%20of%20ABU%20between%20IPA%20and%20other%20Ale-1.png" width="672" /></p>
+<p><img src="Analysis-Part-8-and-9_files/figure-html/Boxplot%20of%20IBU%20between%20IPA%20and%20other%20Ale-1.png" width="672" /></p>
+<pre><code>## `summarise()` ungrouping output (override with `.groups` argument)</code></pre>
+<pre><code>## # A tibble: 2 x 4
+##   beeripaale beers.abv.median beers.ibu.median count
+##   &lt;chr&gt;                 &lt;dbl&gt;            &lt;dbl&gt; &lt;int&gt;
+## 1 Ale                  0.0545               30   552
+## 2 IPA                  0.0685               70   384</code></pre>
+<p><img src="Analysis-Part-8-and-9_files/figure-html/unnamed-chunk-1-1.png" width="672" /></p>
+<pre><code>## Loading required package: lattice</code></pre>
+<pre><code>## 
+## Attaching package: &#39;caret&#39;</code></pre>
+<pre><code>## The following object is masked from &#39;package:purrr&#39;:
+## 
+##     lift</code></pre>
+<pre><code>## [1] 936  15</code></pre>
+<pre><code>## [1] 655  15</code></pre>
+<pre><code>## [1] 281  15</code></pre>
+<pre><code>## Confusion Matrix and Statistics
+## 
+##      classifications
+##       Ale IPA
+##   Ale 166  10
+##   IPA  31  74
+##                                           
+##                Accuracy : 0.8541          
+##                  95% CI : (0.8073, 0.8932)
+##     No Information Rate : 0.7011          
+##     P-Value [Acc &gt; NIR] : 1.723e-09       
+##                                           
+##                   Kappa : 0.6752          
+##                                           
+##  Mcnemar&#39;s Test P-Value : 0.001787        
+##                                           
+##             Sensitivity : 0.8426          
+##             Specificity : 0.8810          
+##          Pos Pred Value : 0.9432          
+##          Neg Pred Value : 0.7048          
+##              Prevalence : 0.7011          
+##          Detection Rate : 0.5907          
+##    Detection Prevalence : 0.6263          
+##       Balanced Accuracy : 0.8618          
+##                                           
+##        &#39;Positive&#39; Class : Ale             
+## </code></pre>
+<pre><code>## Confusion Matrix and Statistics
+## 
+##      classifications
+##       Ale IPA
+##   Ale 159  17
+##   IPA  37  68
+##                                           
+##                Accuracy : 0.8078          
+##                  95% CI : (0.7568, 0.8522)
+##     No Information Rate : 0.6975          
+##     P-Value [Acc &gt; NIR] : 1.881e-05       
+##                                           
+##                   Kappa : 0.573           
+##                                           
+##  Mcnemar&#39;s Test P-Value : 0.009722        
+##                                           
+##             Sensitivity : 0.8112          
+##             Specificity : 0.8000          
+##          Pos Pred Value : 0.9034          
+##          Neg Pred Value : 0.6476          
+##              Prevalence : 0.6975          
+##          Detection Rate : 0.5658          
+##    Detection Prevalence : 0.6263          
+##       Balanced Accuracy : 0.8056          
+##                                           
+##        &#39;Positive&#39; Class : Ale             
+## </code></pre>
+<div id="loop-for-many-k-and-one-training-test-partition" class="section level2">
+<h2>Loop for many k and one training / test partition</h2>
+<p><img src="Analysis-Part-8-and-9_files/figure-html/unnamed-chunk-3-1.png" width="672" /> ## Loop for many k and many training / test partitions <img src="Analysis-Part-8-and-9_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
+<pre><code>## [1] 5</code></pre>
+<pre><code>## [1] 0.859395</code></pre>
+<pre><code>## corrplot 0.84 loaded</code></pre>
+<pre><code>## Registered S3 method overwritten by &#39;GGally&#39;:
+##   method from   
+##   +.gg   ggplot2</code></pre>
+<pre><code>## Warning in ggally_statistic(data = data, mapping = mapping, na.rm = na.rm, :
+## Removed 8 rows containing missing values
+
+## Warning in ggally_statistic(data = data, mapping = mapping, na.rm = na.rm, :
+## Removed 8 rows containing missing values
+
+## Warning in ggally_statistic(data = data, mapping = mapping, na.rm = na.rm, :
+## Removed 8 rows containing missing values
+
+## Warning in ggally_statistic(data = data, mapping = mapping, na.rm = na.rm, :
+## Removed 8 rows containing missing values
+
+## Warning in ggally_statistic(data = data, mapping = mapping, na.rm = na.rm, :
+## Removed 8 rows containing missing values
+
+## Warning in ggally_statistic(data = data, mapping = mapping, na.rm = na.rm, :
+## Removed 8 rows containing missing values</code></pre>
+<pre><code>## Warning: Removed 8 rows containing missing values (geom_point).
+
+## Warning: Removed 8 rows containing missing values (geom_point).
+
+## Warning: Removed 8 rows containing missing values (geom_point).</code></pre>
+<pre><code>## Warning: Removed 8 rows containing non-finite values (stat_density).</code></pre>
+<pre><code>## Warning in ggally_statistic(data = data, mapping = mapping, na.rm = na.rm, :
+## Removed 8 rows containing missing values</code></pre>
+<pre><code>## Warning: Removed 8 rows containing missing values (geom_point).
+
+## Warning: Removed 8 rows containing missing values (geom_point).
+
+## Warning: Removed 8 rows containing missing values (geom_point).
+
+## Warning: Removed 8 rows containing missing values (geom_point).</code></pre>
+<pre><code>## Warning: Removed 8 rows containing non-finite values (stat_density).</code></pre>
+<p><img src="Analysis-Part-8-and-9_files/figure-html/check%20correlation%20within%20IBU,ABV,Income,%20population,Ounce-1.png" width="672" /><img src="Analysis-Part-8-and-9_files/figure-html/check%20correlation%20within%20IBU,ABV,Income,%20population,Ounce-2.png" width="672" /></p>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
