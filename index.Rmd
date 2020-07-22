@@ -1,9 +1,4 @@
 ---
-title: "index"
-author: "Sophia Wu"
-date: "7/22/2020"
-output: html_document
+title: "Sophia's Website"
 ---
-
-##This is the home web page
-#####
+Thank you for visiting my website! This is Sophia Wu, from this website you may find my projects.
