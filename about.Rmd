@@ -2,7 +2,4 @@
 title: "About This Website"
 ---
 
-Thank you for visiting my website!
-
-More about my projects.
-
+More about this website.
