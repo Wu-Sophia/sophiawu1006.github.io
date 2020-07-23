@@ -1,4 +1,4 @@
 ---
-title: "Sophia's Website"
+title: "My Website"
 ---
 Thank you for visiting my website! This is Sophia Wu, from this website you may find my projects.
