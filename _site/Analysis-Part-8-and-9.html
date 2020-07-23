@@ -301,39 +301,26 @@ $(document).ready(function () {
 
 
 <p>Note that the <code>echo = FALSE</code> parameter was added to the code chunk to prevent printing of the R code that generated the plot. # Data Analysis for questions 8 and 9</p>
-<pre><code>## ── Attaching packages ─────────────────────────────────────────────────── tidyverse 1.3.0 ──</code></pre>
-<pre><code>## ✓ ggplot2 3.3.2     ✓ purrr   0.3.4
-## ✓ tibble  3.0.1     ✓ dplyr   1.0.0
-## ✓ tidyr   1.1.0     ✓ stringr 1.4.0
-## ✓ readr   1.3.1     ✓ forcats 0.5.0</code></pre>
-<pre><code>## ── Conflicts ────────────────────────────────────────────────────── tidyverse_conflicts() ──
-## x dplyr::filter() masks stats::filter()
-## x dplyr::lag()    masks stats::lag()</code></pre>
-<pre><code>## 
-## Attaching package: &#39;kableExtra&#39;</code></pre>
-<pre><code>## The following object is masked from &#39;package:dplyr&#39;:
-## 
-##     group_rows</code></pre>
 <pre class="r"><code>beers2 &lt;- beers
 colnames(beers2)</code></pre>
-<pre><code>## [1] &quot;Name&quot;       &quot;Beer_ID&quot;    &quot;ABV&quot;        &quot;IBU&quot;        &quot;Brewery_id&quot;
-## [6] &quot;Style&quot;      &quot;Ounces&quot;</code></pre>
+<pre><code>## [1] &quot;Name&quot;       &quot;Beer_ID&quot;    &quot;ABV&quot;        &quot;IBU&quot;        &quot;Brewery_id&quot; &quot;Style&quot;     
+## [7] &quot;Ounces&quot;</code></pre>
 <pre class="r"><code>names(beers2) &lt;- c(&quot;beername&quot;, &quot;beerID&quot;, &quot;beerABV&quot;, &quot;beerIBU&quot;, &quot;beer.brewery.id&quot;, &quot;beerstyle&quot;, &quot;beerOunce&quot;)
 head(beers2)</code></pre>
-<pre><code>##              beername beerID beerABV beerIBU beer.brewery.id
-## 1            Pub Beer   1436   0.050      NA             409
-## 2         Devil&#39;s Cup   2265   0.066      NA             178
-## 3 Rise of the Phoenix   2264   0.071      NA             178
-## 4            Sinister   2263   0.090      NA             178
-## 5       Sex and Candy   2262   0.075      NA             178
-## 6        Black Exodus   2261   0.077      NA             178
-##                        beerstyle beerOunce
-## 1            American Pale Lager        12
-## 2        American Pale Ale (APA)        12
-## 3                   American IPA        12
-## 4 American Double / Imperial IPA        12
-## 5                   American IPA        12
-## 6                  Oatmeal Stout        12</code></pre>
+<pre><code>##              beername beerID beerABV beerIBU beer.brewery.id                      beerstyle
+## 1            Pub Beer   1436   0.050      NA             409            American Pale Lager
+## 2         Devil&#39;s Cup   2265   0.066      NA             178        American Pale Ale (APA)
+## 3 Rise of the Phoenix   2264   0.071      NA             178                   American IPA
+## 4            Sinister   2263   0.090      NA             178 American Double / Imperial IPA
+## 5       Sex and Candy   2262   0.075      NA             178                   American IPA
+## 6        Black Exodus   2261   0.077      NA             178                  Oatmeal Stout
+##   beerOunce
+## 1        12
+## 2        12
+## 3        12
+## 4        12
+## 5        12
+## 6        12</code></pre>
 <pre class="r"><code>brew2 &lt;- breweries
 colnames(brew2)</code></pre>
 <pre><code>## [1] &quot;Brew_ID&quot; &quot;Name&quot;    &quot;City&quot;    &quot;State&quot;</code></pre>
@@ -365,52 +352,45 @@ head(stateinf[1:5])</code></pre>
 <pre class="r"><code>brewstate&lt;- merge(brew2, stateinf[1:5], by.x = &quot;brewery.state.abb&quot;, by.y = &quot;state.abb&quot;, all.x = TRUE)
 
 head(brewstate)</code></pre>
-<pre><code>##   brewery.state.abb brewery.id                  brewery.name brewery.city
-## 1                AK        494  Broken Tooth Brewing Company    Anchorage
-## 2                AK        224  Midnight Sun Brewing Company    Anchorage
-## 3                AK        459   Kenai River Brewing Company     Soldotna
-## 4                AK        454        Denali Brewing Company    Talkeetna
-## 5                AK        558 Sleeping Lady Brewing Company    Anchorage
-## 6                AK        271       Alaskan Brewing Company       Juneau
-##   state.name state.region Population Income
-## 1     Alaska         West        365   6315
-## 2     Alaska         West        365   6315
-## 3     Alaska         West        365   6315
-## 4     Alaska         West        365   6315
-## 5     Alaska         West        365   6315
-## 6     Alaska         West        365   6315</code></pre>
+<pre><code>##   brewery.state.abb brewery.id                  brewery.name brewery.city state.name
+## 1                AK        494  Broken Tooth Brewing Company    Anchorage     Alaska
+## 2                AK        224  Midnight Sun Brewing Company    Anchorage     Alaska
+## 3                AK        459   Kenai River Brewing Company     Soldotna     Alaska
+## 4                AK        454        Denali Brewing Company    Talkeetna     Alaska
+## 5                AK        558 Sleeping Lady Brewing Company    Anchorage     Alaska
+## 6                AK        271       Alaskan Brewing Company       Juneau     Alaska
+##   state.region Population Income
+## 1         West        365   6315
+## 2         West        365   6315
+## 3         West        365   6315
+## 4         West        365   6315
+## 5         West        365   6315
+## 6         West        365   6315</code></pre>
 <pre class="r"><code>beermerged &lt;- merge(beers2, brewstate, by.x = &quot;beer.brewery.id&quot;, by.y = &quot;brewery.id&quot;)</code></pre>
 <pre class="r"><code>beermerged$beeripaale&lt;- &#39;&#39;
 
 head(beermerged)</code></pre>
-<pre><code>##   beer.brewery.id      beername beerID beerABV beerIBU
-## 1               1  Get Together   2692   0.045      50
-## 2               1 Maggie&#39;s Leap   2691   0.049      26
-## 3               1    Wall&#39;s End   2690   0.048      19
-## 4               1       Pumpion   2689   0.060      38
-## 5               1    Stronghold   2688   0.060      25
-## 6               1   Parapet ESB   2687   0.056      47
-##                             beerstyle beerOunce brewery.state.abb
-## 1                        American IPA        16                MN
-## 2                  Milk / Sweet Stout        16                MN
-## 3                   English Brown Ale        16                MN
-## 4                         Pumpkin Ale        16                MN
-## 5                     American Porter        16                MN
-## 6 Extra Special / Strong Bitter (ESB)        16                MN
-##         brewery.name brewery.city state.name  state.region Population Income
-## 1 NorthGate Brewing   Minneapolis  Minnesota North Central       3921   4675
-## 2 NorthGate Brewing   Minneapolis  Minnesota North Central       3921   4675
-## 3 NorthGate Brewing   Minneapolis  Minnesota North Central       3921   4675
-## 4 NorthGate Brewing   Minneapolis  Minnesota North Central       3921   4675
-## 5 NorthGate Brewing   Minneapolis  Minnesota North Central       3921   4675
-## 6 NorthGate Brewing   Minneapolis  Minnesota North Central       3921   4675
-##   beeripaale
-## 1           
-## 2           
-## 3           
-## 4           
-## 5           
-## 6</code></pre>
+<pre><code>##   beer.brewery.id      beername beerID beerABV beerIBU                           beerstyle
+## 1               1  Get Together   2692   0.045      50                        American IPA
+## 2               1 Maggie&#39;s Leap   2691   0.049      26                  Milk / Sweet Stout
+## 3               1    Wall&#39;s End   2690   0.048      19                   English Brown Ale
+## 4               1       Pumpion   2689   0.060      38                         Pumpkin Ale
+## 5               1    Stronghold   2688   0.060      25                     American Porter
+## 6               1   Parapet ESB   2687   0.056      47 Extra Special / Strong Bitter (ESB)
+##   beerOunce brewery.state.abb       brewery.name brewery.city state.name  state.region
+## 1        16                MN NorthGate Brewing   Minneapolis  Minnesota North Central
+## 2        16                MN NorthGate Brewing   Minneapolis  Minnesota North Central
+## 3        16                MN NorthGate Brewing   Minneapolis  Minnesota North Central
+## 4        16                MN NorthGate Brewing   Minneapolis  Minnesota North Central
+## 5        16                MN NorthGate Brewing   Minneapolis  Minnesota North Central
+## 6        16                MN NorthGate Brewing   Minneapolis  Minnesota North Central
+##   Population Income beeripaale
+## 1       3921   4675           
+## 2       3921   4675           
+## 3       3921   4675           
+## 4       3921   4675           
+## 5       3921   4675           
+## 6       3921   4675</code></pre>
 <pre class="r"><code>#Get all different beers styles&#39; numbers
 beermerged %&gt;%count(beerstyle)</code></pre>
 <pre><code>##                               beerstyle   n
@@ -517,24 +497,24 @@ beermerged %&gt;%count(beerstyle)</code></pre>
 <pre class="r"><code>#filter missing value
 beermerged %&gt;%
   filter(beerstyle == &#39;&#39;)</code></pre>
-<pre><code>##   beer.brewery.id                       beername beerID beerABV beerIBU
-## 1              30                Special Release   2210      NA      NA
-## 2              67                  OktoberFiesta   2527   0.053      27
-## 3             161 Kilt Lifter Scottish-Style Ale   1635   0.060      21
-## 4             167                   The CROWLER™   1796      NA      NA
-## 5             167           CAN&#39;D AID Foundation   1790      NA      NA
-##   beerstyle beerOunce brewery.state.abb               brewery.name brewery.city
-## 1                  16                TX        Cedar Creek Brewery Seven Points
-## 2                  12                TX   Freetail Brewing Company  San Antonio
-## 3                  12                AZ Four Peaks Brewing Company        Tempe
-## 4                  32                CO        Oskar Blues Brewery     Longmont
-## 5                  12                CO        Oskar Blues Brewery     Longmont
-##   state.name state.region Population Income beeripaale
-## 1      Texas        South      12237   4188           
-## 2      Texas        South      12237   4188           
-## 3    Arizona         West       2212   4530           
-## 4   Colorado         West       2541   4884           
-## 5   Colorado         West       2541   4884</code></pre>
+<pre><code>##   beer.brewery.id                       beername beerID beerABV beerIBU beerstyle beerOunce
+## 1              30                Special Release   2210      NA      NA                  16
+## 2              67                  OktoberFiesta   2527   0.053      27                  12
+## 3             161 Kilt Lifter Scottish-Style Ale   1635   0.060      21                  12
+## 4             167                   The CROWLER™   1796      NA      NA                  32
+## 5             167           CAN&#39;D AID Foundation   1790      NA      NA                  12
+##   brewery.state.abb               brewery.name brewery.city state.name state.region
+## 1                TX        Cedar Creek Brewery Seven Points      Texas        South
+## 2                TX   Freetail Brewing Company  San Antonio      Texas        South
+## 3                AZ Four Peaks Brewing Company        Tempe    Arizona         West
+## 4                CO        Oskar Blues Brewery     Longmont   Colorado         West
+## 5                CO        Oskar Blues Brewery     Longmont   Colorado         West
+##   Population Income beeripaale
+## 1      12237   4188           
+## 2      12237   4188           
+## 3       2212   4530           
+## 4       2541   4884           
+## 5       2541   4884</code></pre>
 <pre class="r"><code>beermerged %&gt;%
   filter(beerstyle %in% c(&quot;American Double / Imperial IPA&quot;, &quot;American IPA&quot;, &quot;Belgian IPA&quot;, &quot;English India Pale Ale (IPA)&quot;)) %&gt;%
   count(beerstyle)</code></pre>
@@ -547,42 +527,35 @@ beermerged %&gt;%
   filter(beerstyle %in% c(&quot;American Double / Imperial IPA&quot;, &quot;American IPA&quot;, &quot;Belgian IPA&quot;, &quot;English India Pale Ale (IPA)&quot;)) %&gt;%
   mutate(beeripaale= &#39;IPA&#39;)
 head(beeripa)</code></pre>
-<pre><code>##   beer.brewery.id       beername beerID beerABV beerIBU
-## 1               1   Get Together   2692   0.045      50
-## 2               2 Citra Ass Down   2686   0.080      68
-## 3               2    Rico Sauvin   2678   0.076      68
-## 4               2   Pile of Face   2675   0.060      65
-## 5               4 Habitus (2014)   2668   0.080     100
-## 6               4          Solis   2667   0.075      85
-##                        beerstyle beerOunce brewery.state.abb
-## 1                   American IPA        16                MN
-## 2 American Double / Imperial IPA        16                KY
-## 3 American Double / Imperial IPA        16                KY
-## 4                   American IPA        16                KY
-## 5 American Double / Imperial IPA        16                CA
-## 6                   American IPA        16                CA
-##                brewery.name brewery.city state.name  state.region Population
-## 1        NorthGate Brewing   Minneapolis  Minnesota North Central       3921
-## 2 Against the Grain Brewery   Louisville   Kentucky         South       3387
-## 3 Against the Grain Brewery   Louisville   Kentucky         South       3387
-## 4 Against the Grain Brewery   Louisville   Kentucky         South       3387
-## 5 Mike Hess Brewing Company    San Diego California          West      21198
-## 6 Mike Hess Brewing Company    San Diego California          West      21198
-##   Income beeripaale
-## 1   4675        IPA
-## 2   3712        IPA
-## 3   3712        IPA
-## 4   3712        IPA
-## 5   5114        IPA
-## 6   5114        IPA</code></pre>
+<pre><code>##   beer.brewery.id       beername beerID beerABV beerIBU                      beerstyle
+## 1               1   Get Together   2692   0.045      50                   American IPA
+## 2               2 Citra Ass Down   2686   0.080      68 American Double / Imperial IPA
+## 3               2    Rico Sauvin   2678   0.076      68 American Double / Imperial IPA
+## 4               2   Pile of Face   2675   0.060      65                   American IPA
+## 5               4 Habitus (2014)   2668   0.080     100 American Double / Imperial IPA
+## 6               4          Solis   2667   0.075      85                   American IPA
+##   beerOunce brewery.state.abb              brewery.name brewery.city state.name
+## 1        16                MN        NorthGate Brewing   Minneapolis  Minnesota
+## 2        16                KY Against the Grain Brewery   Louisville   Kentucky
+## 3        16                KY Against the Grain Brewery   Louisville   Kentucky
+## 4        16                KY Against the Grain Brewery   Louisville   Kentucky
+## 5        16                CA Mike Hess Brewing Company    San Diego California
+## 6        16                CA Mike Hess Brewing Company    San Diego California
+##    state.region Population Income beeripaale
+## 1 North Central       3921   4675        IPA
+## 2         South       3387   3712        IPA
+## 3         South       3387   3712        IPA
+## 4         South       3387   3712        IPA
+## 5          West      21198   5114        IPA
+## 6          West      21198   5114        IPA</code></pre>
 <pre class="r"><code># Kilt Lifter Scottish-Style Ale (1635)
 beermerged[946,]</code></pre>
-<pre><code>##     beer.brewery.id                       beername beerID beerABV beerIBU
-## 946             161 Kilt Lifter Scottish-Style Ale   1635    0.06      21
-##     beerstyle beerOunce brewery.state.abb               brewery.name
-## 946                  12                AZ Four Peaks Brewing Company
-##     brewery.city state.name state.region Population Income beeripaale
-## 946        Tempe    Arizona         West       2212   4530</code></pre>
+<pre><code>##     beer.brewery.id                       beername beerID beerABV beerIBU beerstyle
+## 946             161 Kilt Lifter Scottish-Style Ale   1635    0.06      21          
+##     beerOunce brewery.state.abb               brewery.name brewery.city state.name
+## 946        12                AZ Four Peaks Brewing Company        Tempe    Arizona
+##     state.region Population Income beeripaale
+## 946         West       2212   4530</code></pre>
 <pre class="r"><code>beermerged %&gt;%
   filter(!beerstyle %in% c(&quot;American Double / Imperial IPA&quot;, &quot;American IPA&quot;, &quot;Belgian IPA&quot;, &quot;English India Pale Ale (IPA)&quot;)) %&gt;%
   filter(str_detect(beerstyle, &quot;Ale&quot;) |  beerID==1635) %&gt;%
@@ -623,27 +596,27 @@ beermerged[946,]</code></pre>
   mutate(beeripaale= &#39;Ale&#39;)
 
 head(beerale)</code></pre>
-<pre><code>##   beer.brewery.id         beername beerID beerABV beerIBU
-## 1               1       Wall&#39;s End   2690   0.048      19
-## 2               1          Pumpion   2689   0.060      38
-## 3               2           A Beer   2683   0.042      42
-## 4               2    Flesh Gourd&#39;n   2681   0.066      21
-## 5               2         Sho&#39;nuff   2680   0.040      13
-## 6               2 Coq de la Marche   2677   0.051      38
-##                 beerstyle beerOunce brewery.state.abb              brewery.name
-## 1       English Brown Ale        16                MN        NorthGate Brewing 
-## 2             Pumpkin Ale        16                MN        NorthGate Brewing 
-## 3 American Pale Ale (APA)        16                KY Against the Grain Brewery
-## 4             Pumpkin Ale        16                KY Against the Grain Brewery
-## 5        Belgian Pale Ale        16                KY Against the Grain Brewery
-## 6  Saison / Farmhouse Ale        16                KY Against the Grain Brewery
-##   brewery.city state.name  state.region Population Income beeripaale
-## 1  Minneapolis  Minnesota North Central       3921   4675        Ale
-## 2  Minneapolis  Minnesota North Central       3921   4675        Ale
-## 3   Louisville   Kentucky         South       3387   3712        Ale
-## 4   Louisville   Kentucky         South       3387   3712        Ale
-## 5   Louisville   Kentucky         South       3387   3712        Ale
-## 6   Louisville   Kentucky         South       3387   3712        Ale</code></pre>
+<pre><code>##   beer.brewery.id         beername beerID beerABV beerIBU               beerstyle beerOunce
+## 1               1       Wall&#39;s End   2690   0.048      19       English Brown Ale        16
+## 2               1          Pumpion   2689   0.060      38             Pumpkin Ale        16
+## 3               2           A Beer   2683   0.042      42 American Pale Ale (APA)        16
+## 4               2    Flesh Gourd&#39;n   2681   0.066      21             Pumpkin Ale        16
+## 5               2         Sho&#39;nuff   2680   0.040      13        Belgian Pale Ale        16
+## 6               2 Coq de la Marche   2677   0.051      38  Saison / Farmhouse Ale        16
+##   brewery.state.abb              brewery.name brewery.city state.name  state.region
+## 1                MN        NorthGate Brewing   Minneapolis  Minnesota North Central
+## 2                MN        NorthGate Brewing   Minneapolis  Minnesota North Central
+## 3                KY Against the Grain Brewery   Louisville   Kentucky         South
+## 4                KY Against the Grain Brewery   Louisville   Kentucky         South
+## 5                KY Against the Grain Brewery   Louisville   Kentucky         South
+## 6                KY Against the Grain Brewery   Louisville   Kentucky         South
+##   Population Income beeripaale
+## 1       3921   4675        Ale
+## 2       3921   4675        Ale
+## 3       3387   3712        Ale
+## 4       3387   3712        Ale
+## 5       3387   3712        Ale
+## 6       3387   3712        Ale</code></pre>
 <pre class="r"><code>head(beermerged) %&gt;%
   mutate(beer.style.words = as.character(str_split(beerstyle, boundary(&quot;word&quot;)))) %&gt;%
   select(beer.style.words)</code></pre>
@@ -666,34 +639,27 @@ ipa_ale_count &lt;- dim(beercombined_ale)[1]
 
 
 head(beercombined_ale)</code></pre>
-<pre><code>##   beer.brewery.id       beername beerID beerABV beerIBU
-## 1               1   Get Together   2692   0.045      50
-## 2               2 Citra Ass Down   2686   0.080      68
-## 3               2    Rico Sauvin   2678   0.076      68
-## 4               2   Pile of Face   2675   0.060      65
-## 5               4 Habitus (2014)   2668   0.080     100
-## 6               4          Solis   2667   0.075      85
-##                        beerstyle beerOunce brewery.state.abb
-## 1                   American IPA        16                MN
-## 2 American Double / Imperial IPA        16                KY
-## 3 American Double / Imperial IPA        16                KY
-## 4                   American IPA        16                KY
-## 5 American Double / Imperial IPA        16                CA
-## 6                   American IPA        16                CA
-##                brewery.name brewery.city state.name  state.region Population
-## 1        NorthGate Brewing   Minneapolis  Minnesota North Central       3921
-## 2 Against the Grain Brewery   Louisville   Kentucky         South       3387
-## 3 Against the Grain Brewery   Louisville   Kentucky         South       3387
-## 4 Against the Grain Brewery   Louisville   Kentucky         South       3387
-## 5 Mike Hess Brewing Company    San Diego California          West      21198
-## 6 Mike Hess Brewing Company    San Diego California          West      21198
-##   Income beeripaale
-## 1   4675        IPA
-## 2   3712        IPA
-## 3   3712        IPA
-## 4   3712        IPA
-## 5   5114        IPA
-## 6   5114        IPA</code></pre>
+<pre><code>##   beer.brewery.id       beername beerID beerABV beerIBU                      beerstyle
+## 1               1   Get Together   2692   0.045      50                   American IPA
+## 2               2 Citra Ass Down   2686   0.080      68 American Double / Imperial IPA
+## 3               2    Rico Sauvin   2678   0.076      68 American Double / Imperial IPA
+## 4               2   Pile of Face   2675   0.060      65                   American IPA
+## 5               4 Habitus (2014)   2668   0.080     100 American Double / Imperial IPA
+## 6               4          Solis   2667   0.075      85                   American IPA
+##   beerOunce brewery.state.abb              brewery.name brewery.city state.name
+## 1        16                MN        NorthGate Brewing   Minneapolis  Minnesota
+## 2        16                KY Against the Grain Brewery   Louisville   Kentucky
+## 3        16                KY Against the Grain Brewery   Louisville   Kentucky
+## 4        16                KY Against the Grain Brewery   Louisville   Kentucky
+## 5        16                CA Mike Hess Brewing Company    San Diego California
+## 6        16                CA Mike Hess Brewing Company    San Diego California
+##    state.region Population Income beeripaale
+## 1 North Central       3921   4675        IPA
+## 2         South       3387   3712        IPA
+## 3         South       3387   3712        IPA
+## 4         South       3387   3712        IPA
+## 5          West      21198   5114        IPA
+## 6          West      21198   5114        IPA</code></pre>
 <p><img src="Analysis-Part-8-and-9_files/figure-html/Boxplot%20of%20ABU%20between%20IPA%20and%20other%20Ale-1.png" width="672" /></p>
 <p><img src="Analysis-Part-8-and-9_files/figure-html/Boxplot%20of%20IBU%20between%20IPA%20and%20other%20Ale-1.png" width="672" /></p>
 <pre><code>## `summarise()` ungrouping output (override with `.groups` argument)</code></pre>
@@ -703,12 +669,6 @@ head(beercombined_ale)</code></pre>
 ## 1 Ale                  0.0545               30   552
 ## 2 IPA                  0.0685               70   384</code></pre>
 <p><img src="Analysis-Part-8-and-9_files/figure-html/unnamed-chunk-1-1.png" width="672" /></p>
-<pre><code>## Loading required package: lattice</code></pre>
-<pre><code>## 
-## Attaching package: &#39;caret&#39;</code></pre>
-<pre><code>## The following object is masked from &#39;package:purrr&#39;:
-## 
-##     lift</code></pre>
 <pre><code>## [1] 936  15</code></pre>
 <pre><code>## [1] 655  15</code></pre>
 <pre><code>## [1] 281  15</code></pre>
@@ -771,42 +731,53 @@ head(beercombined_ale)</code></pre>
 <p><img src="Analysis-Part-8-and-9_files/figure-html/unnamed-chunk-3-1.png" width="672" /> ## Loop for many k and many training / test partitions <img src="Analysis-Part-8-and-9_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
 <pre><code>## [1] 5</code></pre>
 <pre><code>## [1] 0.859395</code></pre>
-<pre><code>## corrplot 0.84 loaded</code></pre>
-<pre><code>## Registered S3 method overwritten by &#39;GGally&#39;:
-##   method from   
-##   +.gg   ggplot2</code></pre>
-<pre><code>## Warning in ggally_statistic(data = data, mapping = mapping, na.rm = na.rm, :
-## Removed 8 rows containing missing values
-
-## Warning in ggally_statistic(data = data, mapping = mapping, na.rm = na.rm, :
-## Removed 8 rows containing missing values
-
-## Warning in ggally_statistic(data = data, mapping = mapping, na.rm = na.rm, :
-## Removed 8 rows containing missing values
-
-## Warning in ggally_statistic(data = data, mapping = mapping, na.rm = na.rm, :
-## Removed 8 rows containing missing values
-
-## Warning in ggally_statistic(data = data, mapping = mapping, na.rm = na.rm, :
-## Removed 8 rows containing missing values
-
-## Warning in ggally_statistic(data = data, mapping = mapping, na.rm = na.rm, :
-## Removed 8 rows containing missing values</code></pre>
-<pre><code>## Warning: Removed 8 rows containing missing values (geom_point).
-
-## Warning: Removed 8 rows containing missing values (geom_point).
-
-## Warning: Removed 8 rows containing missing values (geom_point).</code></pre>
+<pre><code>## plot: [1,1] [=&gt;------------------------------------------------------------] 4% est: 0s
+## plot: [1,2] [====&gt;---------------------------------------------------------] 8% est: 1s
+## plot: [1,3] [======&gt;-------------------------------------------------------] 12% est: 1s
+## plot: [1,4] [=========&gt;----------------------------------------------------] 16% est: 1s</code></pre>
+<pre><code>## Warning in ggally_statistic(data = data, mapping = mapping, na.rm = na.rm, : Removed 8 rows
+## containing missing values</code></pre>
+<pre><code>## plot: [1,5] [===========&gt;--------------------------------------------------] 20% est: 1s</code></pre>
+<pre><code>## Warning in ggally_statistic(data = data, mapping = mapping, na.rm = na.rm, : Removed 8 rows
+## containing missing values</code></pre>
+<pre><code>## plot: [2,1] [==============&gt;-----------------------------------------------] 24% est: 1s
+## plot: [2,2] [================&gt;---------------------------------------------] 28% est: 1s
+## plot: [2,3] [===================&gt;------------------------------------------] 32% est: 1s
+## plot: [2,4] [=====================&gt;----------------------------------------] 36% est: 1s</code></pre>
+<pre><code>## Warning in ggally_statistic(data = data, mapping = mapping, na.rm = na.rm, : Removed 8 rows
+## containing missing values</code></pre>
+<pre><code>## plot: [2,5] [========================&gt;-------------------------------------] 40% est: 1s</code></pre>
+<pre><code>## Warning in ggally_statistic(data = data, mapping = mapping, na.rm = na.rm, : Removed 8 rows
+## containing missing values</code></pre>
+<pre><code>## plot: [3,1] [==========================&gt;-----------------------------------] 44% est: 1s
+## plot: [3,2] [=============================&gt;--------------------------------] 48% est: 1s
+## plot: [3,3] [===============================&gt;------------------------------] 52% est: 0s
+## plot: [3,4] [==================================&gt;---------------------------] 56% est: 0s</code></pre>
+<pre><code>## Warning in ggally_statistic(data = data, mapping = mapping, na.rm = na.rm, : Removed 8 rows
+## containing missing values</code></pre>
+<pre><code>## plot: [3,5] [====================================&gt;-------------------------] 60% est: 0s</code></pre>
+<pre><code>## Warning in ggally_statistic(data = data, mapping = mapping, na.rm = na.rm, : Removed 8 rows
+## containing missing values</code></pre>
+<pre><code>## plot: [4,1] [=======================================&gt;----------------------] 64% est: 0s</code></pre>
+<pre><code>## Warning: Removed 8 rows containing missing values (geom_point).</code></pre>
+<pre><code>## plot: [4,2] [=========================================&gt;--------------------] 68% est: 0s</code></pre>
+<pre><code>## Warning: Removed 8 rows containing missing values (geom_point).</code></pre>
+<pre><code>## plot: [4,3] [============================================&gt;-----------------] 72% est: 0s</code></pre>
+<pre><code>## Warning: Removed 8 rows containing missing values (geom_point).</code></pre>
+<pre><code>## plot: [4,4] [==============================================&gt;---------------] 76% est: 0s</code></pre>
 <pre><code>## Warning: Removed 8 rows containing non-finite values (stat_density).</code></pre>
-<pre><code>## Warning in ggally_statistic(data = data, mapping = mapping, na.rm = na.rm, :
-## Removed 8 rows containing missing values</code></pre>
-<pre><code>## Warning: Removed 8 rows containing missing values (geom_point).
-
-## Warning: Removed 8 rows containing missing values (geom_point).
-
-## Warning: Removed 8 rows containing missing values (geom_point).
-
-## Warning: Removed 8 rows containing missing values (geom_point).</code></pre>
+<pre><code>## plot: [4,5] [=================================================&gt;------------] 80% est: 0s</code></pre>
+<pre><code>## Warning in ggally_statistic(data = data, mapping = mapping, na.rm = na.rm, : Removed 8 rows
+## containing missing values</code></pre>
+<pre><code>## plot: [5,1] [===================================================&gt;----------] 84% est: 0s</code></pre>
+<pre><code>## Warning: Removed 8 rows containing missing values (geom_point).</code></pre>
+<pre><code>## plot: [5,2] [======================================================&gt;-------] 88% est: 0s</code></pre>
+<pre><code>## Warning: Removed 8 rows containing missing values (geom_point).</code></pre>
+<pre><code>## plot: [5,3] [========================================================&gt;-----] 92% est: 0s</code></pre>
+<pre><code>## Warning: Removed 8 rows containing missing values (geom_point).</code></pre>
+<pre><code>## plot: [5,4] [===========================================================&gt;--] 96% est: 0s</code></pre>
+<pre><code>## Warning: Removed 8 rows containing missing values (geom_point).</code></pre>
+<pre><code>## plot: [5,5] [==============================================================]100% est: 0s</code></pre>
 <pre><code>## Warning: Removed 8 rows containing non-finite values (stat_density).</code></pre>
 <p><img src="Analysis-Part-8-and-9_files/figure-html/check%20correlation%20within%20IBU,ABV,Income,%20population,Ounce-1.png" width="672" /><img src="Analysis-Part-8-and-9_files/figure-html/check%20correlation%20within%20IBU,ABV,Income,%20population,Ounce-2.png" width="672" /></p>
 </div>
