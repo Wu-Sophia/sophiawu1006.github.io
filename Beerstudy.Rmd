@@ -197,9 +197,7 @@ beerclassify <- beercombined_ale %>%
 
 beerclassify %>%
   group_by(beeripaale) %>%
-  summarize(beers.abv.median = median(beerABV), beers.ibu.median = median(beerIBU), count = n())
-
-
+  summarise(beers.abv.median = median(beerABV), beers.ibu.median = median(beerIBU), count = n())
 beerclassify %>% 
   ggplot(aes(x = beerABV, y = beerIBU, color =  beeripaale)) + 
   xlab("ABV") + ylab("IBU") + 

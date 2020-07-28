@@ -10,13 +10,11 @@ output:
 
 ```{r}
 #Load Libraries and Data
-library(caret)
-library(class)
+library(Hmisc)
 library(dplyr)
 library(ggplot2)
 library(grid)
 library(gridExtra)
-library(Hmisc)
 library(jsonlite)
 library(kableExtra)
 library(knitr)
@@ -26,7 +24,8 @@ library(stringr)
 library(tidyr)
 library(tidyverse)
 library(usmap)
-
+library(caret)
+library(class)
 ```
 
 ##1. Number of Breweries Per State
@@ -446,6 +445,7 @@ beercombined_ale %>%
 
 ```
 ```{r}
+library(Hmisc)
 beerclassify <- beercombined_ale %>% 
   filter(!is.na(beerABV) & !is.na(beerIBU) & !is.na(Population) & !is.na(Income))
 
