@@ -6,5 +6,7 @@ navbar:
       href: index.html
     - text: "CLT"
       href: CLT_2.html
-       - text: "About"
+    - text: "About"
       href: About.html
+    - text: "Beer project"
+      href: DataDynamos_BeerProject.html
