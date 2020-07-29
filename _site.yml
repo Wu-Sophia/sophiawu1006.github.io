@@ -10,3 +10,5 @@ navbar:
       href: About.html
     - text: "Beer project"
       href: Beerstudy.html
+    - text: "Rshinytest"
+      href: https://smutest.shinyapps.io/RShiny/

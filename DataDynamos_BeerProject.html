@@ -284,6 +284,9 @@ $(document).ready(function () {
 <li>
   <a href="Beerstudy.html">Beer project</a>
 </li>
+<li>
+  <a href="https://smutest.shinyapps.io/RShiny/">Rshinytest</a>
+</li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         
@@ -304,16 +307,49 @@ $(document).ready(function () {
 
 
 <pre class="r"><code>#Load Libraries and Data
-library(Hmisc)
-library(dplyr)
+library(Hmisc)</code></pre>
+<pre><code>## Loading required package: survival</code></pre>
+<pre><code>## 
+## Attaching package: &#39;survival&#39;</code></pre>
+<pre><code>## The following object is masked from &#39;package:caret&#39;:
+## 
+##     cluster</code></pre>
+<pre><code>## Loading required package: Formula</code></pre>
+<pre><code>## 
+## Attaching package: &#39;Hmisc&#39;</code></pre>
+<pre><code>## The following object is masked from &#39;package:e1071&#39;:
+## 
+##     impute</code></pre>
+<pre><code>## The following objects are masked from &#39;package:dplyr&#39;:
+## 
+##     src, summarize</code></pre>
+<pre><code>## The following objects are masked from &#39;package:base&#39;:
+## 
+##     format.pval, units</code></pre>
+<pre class="r"><code>library(dplyr)
 library(ggplot2)
 library(grid)
-library(gridExtra)
-library(jsonlite)
-library(kableExtra)
+library(gridExtra)</code></pre>
+<pre><code>## 
+## Attaching package: &#39;gridExtra&#39;</code></pre>
+<pre><code>## The following object is masked from &#39;package:dplyr&#39;:
+## 
+##     combine</code></pre>
+<pre class="r"><code>library(jsonlite)</code></pre>
+<pre><code>## 
+## Attaching package: &#39;jsonlite&#39;</code></pre>
+<pre><code>## The following object is masked from &#39;package:purrr&#39;:
+## 
+##     flatten</code></pre>
+<pre class="r"><code>library(kableExtra)
 library(knitr)
-library(maps)
-library(naniar)
+library(maps)</code></pre>
+<pre><code>## 
+## Attaching package: &#39;maps&#39;</code></pre>
+<pre><code>## The following object is masked from &#39;package:purrr&#39;:
+## 
+##     map</code></pre>
+<pre class="r"><code>library(naniar)
 library(stringr)
 library(tidyr)
 library(tidyverse)
@@ -1133,7 +1169,7 @@ filterbeermerged &lt;-beermerged1 %&gt;% select(beerIBU,beerABV, beerOunce,Incom
 
 ggpairs(filterbeermerged, title=&quot;correlogram with ggpairs()&quot;) </code></pre>
 <pre><code>## plot: [1,1] [=&gt;------------------------------------------------------------] 4% est: 0s
-## plot: [1,2] [====&gt;---------------------------------------------------------] 8% est: 0s
+## plot: [1,2] [====&gt;---------------------------------------------------------] 8% est: 1s
 ## plot: [1,3] [======&gt;-------------------------------------------------------] 12% est: 1s
 ## plot: [1,4] [=========&gt;----------------------------------------------------] 16% est: 1s</code></pre>
 <pre><code>## Warning in ggally_statistic(data = data, mapping = mapping, na.rm = na.rm, : Removed 8 rows
@@ -1147,7 +1183,7 @@ ggpairs(filterbeermerged, title=&quot;correlogram with ggpairs()&quot;) </code><
 ## plot: [2,4] [=====================&gt;----------------------------------------] 36% est: 1s</code></pre>
 <pre><code>## Warning in ggally_statistic(data = data, mapping = mapping, na.rm = na.rm, : Removed 8 rows
 ## containing missing values</code></pre>
-<pre><code>## plot: [2,5] [========================&gt;-------------------------------------] 40% est: 0s</code></pre>
+<pre><code>## plot: [2,5] [========================&gt;-------------------------------------] 40% est: 1s</code></pre>
 <pre><code>## Warning in ggally_statistic(data = data, mapping = mapping, na.rm = na.rm, : Removed 8 rows
 ## containing missing values</code></pre>
 <pre><code>## plot: [3,1] [==========================&gt;-----------------------------------] 44% est: 0s
@@ -1198,34 +1234,34 @@ Json &lt;- &quot;https://api.census.gov/data/2018/acs/acs1?get=NAME,B01001_001E&
 #put in Dataframe
 get_json &lt;- jsonlite::fromJSON(Json, flatten = TRUE)
 str(get_json)</code></pre>
-<pre><code>##  chr [1:53, 1:3] &quot;NAME&quot; &quot;Maine&quot; &quot;North Carolina&quot; &quot;Georgia&quot; &quot;Alaska&quot; &quot;Alabama&quot; &quot;Vermont&quot; ...</code></pre>
+<pre><code>##  chr [1:53, 1:3] &quot;NAME&quot; &quot;Colorado&quot; &quot;Indiana&quot; &quot;Kentucky&quot; &quot;Louisiana&quot; &quot;Illinois&quot; &quot;Iowa&quot; ...</code></pre>
 <pre class="r"><code>Pop_df &lt;- as.data.frame(get_json)
 str(Pop_df)</code></pre>
 <pre><code>## &#39;data.frame&#39;:    53 obs. of  3 variables:
-##  $ V1: chr  &quot;NAME&quot; &quot;Maine&quot; &quot;North Carolina&quot; &quot;Georgia&quot; ...
-##  $ V2: chr  &quot;B01001_001E&quot; &quot;1338404&quot; &quot;10383620&quot; &quot;10519475&quot; ...
-##  $ V3: chr  &quot;state&quot; &quot;23&quot; &quot;37&quot; &quot;13&quot; ...</code></pre>
+##  $ V1: chr  &quot;NAME&quot; &quot;Colorado&quot; &quot;Indiana&quot; &quot;Kentucky&quot; ...
+##  $ V2: chr  &quot;B01001_001E&quot; &quot;5695564&quot; &quot;6691878&quot; &quot;4468402&quot; ...
+##  $ V3: chr  &quot;state&quot; &quot;08&quot; &quot;18&quot; &quot;21&quot; ...</code></pre>
 <pre class="r"><code>colnames(Pop_df)</code></pre>
 <pre><code>## [1] &quot;V1&quot; &quot;V2&quot; &quot;V3&quot;</code></pre>
 <pre class="r"><code>head(Pop_df)</code></pre>
-<pre><code>##               V1          V2    V3
-## 1           NAME B01001_001E state
-## 2          Maine     1338404    23
-## 3 North Carolina    10383620    37
-## 4        Georgia    10519475    13
-## 5         Alaska      737438    02
-## 6        Alabama     4887871    01</code></pre>
+<pre><code>##          V1          V2    V3
+## 1      NAME B01001_001E state
+## 2  Colorado     5695564    08
+## 3   Indiana     6691878    18
+## 4  Kentucky     4468402    21
+## 5 Louisiana     4659978    22
+## 6  Illinois    12741080    17</code></pre>
 <pre class="r"><code>#clean up by renaming columns and dropping unneeded columns/rows
 names(Pop_df)[1] &lt;- &quot;State&quot;
 names(Pop_df)[2] &lt;- &quot;Population&quot;
 head(Pop_df)</code></pre>
-<pre><code>##            State  Population    V3
-## 1           NAME B01001_001E state
-## 2          Maine     1338404    23
-## 3 North Carolina    10383620    37
-## 4        Georgia    10519475    13
-## 5         Alaska      737438    02
-## 6        Alabama     4887871    01</code></pre>
+<pre><code>##       State  Population    V3
+## 1      NAME B01001_001E state
+## 2  Colorado     5695564    08
+## 3   Indiana     6691878    18
+## 4  Kentucky     4468402    21
+## 5 Louisiana     4659978    22
+## 6  Illinois    12741080    17</code></pre>
 <pre class="r"><code>#clean up by dropping unneeded columns/rows
 Pop_df &lt;- select(Pop_df, -3)
 Pop_df &lt;- Pop_df[-c(1),]
@@ -1235,13 +1271,13 @@ Pop_df$Population &lt;- as.numeric(as.character(Pop_df$Population))
 
 view(Pop_df)
 head(Pop_df)</code></pre>
-<pre><code>##            State Population
-## 2          Maine    1338404
-## 3 North Carolina   10383620
-## 4        Georgia   10519475
-## 5         Alaska     737438
-## 6        Alabama    4887871
-## 7        Vermont     626299</code></pre>
+<pre><code>##       State Population
+## 2  Colorado    5695564
+## 3   Indiana    6691878
+## 4  Kentucky    4468402
+## 5 Louisiana    4659978
+## 6  Illinois   12741080
+## 7      Iowa    3156145</code></pre>
 <pre class="r"><code>summary(Pop_df)</code></pre>
 <pre><code>##     State             Population      
 ##  Length:52          Min.   :  577737  
@@ -1253,58 +1289,58 @@ head(Pop_df)</code></pre>
 <pre class="r"><code>#take a look at data
 Pop_df[order(Pop_df$Population),]</code></pre>
 <pre><code>##                   State Population
-## 17              Wyoming     577737
-## 7               Vermont     626299
-## 25 District of Columbia     702455
-## 5                Alaska     737438
-## 14         North Dakota     760077
-## 37         South Dakota     882235
-## 51             Delaware     967171
-## 39         Rhode Island    1057315
-## 53              Montana    1062305
-## 2                 Maine    1338404
-## 49        New Hampshire    1356458
-## 36               Hawaii    1420491
-## 34                Idaho    1754208
-## 9         West Virginia    1805832
-## 33             Nebraska    1929268
-## 35           New Mexico    2095428
-## 42               Kansas    2911510
-## 19          Mississippi    2986530
-## 50             Arkansas    3013825
-## 8                Nevada    3034392
-## 48                 Iowa    3156145
-## 26                 Utah    3161105
-## 12          Puerto Rico    3195153
-## 20          Connecticut    3572665
-## 10             Oklahoma    3943079
-## 16               Oregon    4190713
-## 45             Kentucky    4468402
-## 46            Louisiana    4659978
-## 6               Alabama    4887871
-## 15       South Carolina    5084127
-## 52            Minnesota    5611179
-## 43             Colorado    5695564
-## 11            Wisconsin    5813568
-## 22             Maryland    6042718
-## 30             Missouri    6126452
-## 44              Indiana    6691878
-## 41            Tennessee    6770010
-## 24        Massachusetts    6902149
-## 40              Arizona    7171646
-## 38           Washington    7535591
-## 13             Virginia    8517685
-## 28           New Jersey    8908520
-## 32             Michigan    9995915
-## 3        North Carolina   10383620
-## 4               Georgia   10519475
-## 29                 Ohio   11689442
-## 47             Illinois   12741080
-## 31         Pennsylvania   12807060
-## 27             New York   19542209
-## 23              Florida   21299325
-## 21                Texas   28701845
-## 18           California   39557045</code></pre>
+## 28              Wyoming     577737
+## 18              Vermont     626299
+## 36 District of Columbia     702455
+## 16               Alaska     737438
+## 25         North Dakota     760077
+## 48         South Dakota     882235
+## 10             Delaware     967171
+## 50         Rhode Island    1057315
+## 12              Montana    1062305
+## 13                Maine    1338404
+## 8         New Hampshire    1356458
+## 47               Hawaii    1420491
+## 45                Idaho    1754208
+## 20        West Virginia    1805832
+## 44             Nebraska    1929268
+## 46           New Mexico    2095428
+## 53               Kansas    2911510
+## 30          Mississippi    2986530
+## 9              Arkansas    3013825
+## 19               Nevada    3034392
+## 7                  Iowa    3156145
+## 37                 Utah    3161105
+## 23          Puerto Rico    3195153
+## 31          Connecticut    3572665
+## 21             Oklahoma    3943079
+## 27               Oregon    4190713
+## 4              Kentucky    4468402
+## 5             Louisiana    4659978
+## 17              Alabama    4887871
+## 26       South Carolina    5084127
+## 11            Minnesota    5611179
+## 2              Colorado    5695564
+## 22            Wisconsin    5813568
+## 33             Maryland    6042718
+## 41             Missouri    6126452
+## 3               Indiana    6691878
+## 52            Tennessee    6770010
+## 35        Massachusetts    6902149
+## 51              Arizona    7171646
+## 49           Washington    7535591
+## 24             Virginia    8517685
+## 39           New Jersey    8908520
+## 43             Michigan    9995915
+## 14       North Carolina   10383620
+## 15              Georgia   10519475
+## 40                 Ohio   11689442
+## 6              Illinois   12741080
+## 42         Pennsylvania   12807060
+## 38             New York   19542209
+## 34              Florida   21299325
+## 32                Texas   28701845
+## 29           California   39557045</code></pre>
 <pre class="r"><code>#graph Population
 #in ppt
 library(scales)</code></pre>

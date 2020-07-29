@@ -284,6 +284,9 @@ $(document).ready(function () {
 <li>
   <a href="Beerstudy.html">Beer project</a>
 </li>
+<li>
+  <a href="https://smutest.shinyapps.io/RShiny/">Rshinytest</a>
+</li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         
@@ -304,6 +307,20 @@ $(document).ready(function () {
 
 
 <p>Note that the <code>echo = FALSE</code> parameter was added to the code chunk to prevent printing of the R code that generated the plot. # Data Analysis for questions 8 and 9</p>
+<pre><code>## ── Attaching packages ─────────────────────────────────────────────────── tidyverse 1.3.0 ──</code></pre>
+<pre><code>## ✓ ggplot2 3.3.2     ✓ purrr   0.3.4
+## ✓ tibble  3.0.1     ✓ dplyr   1.0.0
+## ✓ tidyr   1.1.0     ✓ stringr 1.4.0
+## ✓ readr   1.3.1     ✓ forcats 0.5.0</code></pre>
+<pre><code>## Warning: package &#39;dplyr&#39; was built under R version 4.0.2</code></pre>
+<pre><code>## ── Conflicts ────────────────────────────────────────────────────── tidyverse_conflicts() ──
+## x dplyr::filter() masks stats::filter()
+## x dplyr::lag()    masks stats::lag()</code></pre>
+<pre><code>## 
+## Attaching package: &#39;kableExtra&#39;</code></pre>
+<pre><code>## The following object is masked from &#39;package:dplyr&#39;:
+## 
+##     group_rows</code></pre>
 <pre class="r"><code>beers2 &lt;- beers
 colnames(beers2)</code></pre>
 <pre><code>## [1] &quot;Name&quot;       &quot;Beer_ID&quot;    &quot;ABV&quot;        &quot;IBU&quot;        &quot;Brewery_id&quot; &quot;Style&quot;     
@@ -672,11 +689,12 @@ head(beercombined_ale)</code></pre>
 ## 1 Ale                  0.0545               30   552
 ## 2 IPA                  0.0685               70   384</code></pre>
 <p><img src="Beerstudy_files/figure-html/unnamed-chunk-1-1.png" width="672" /></p>
+<pre><code>## Loading required package: lattice</code></pre>
 <pre><code>## 
-## Attaching package: &#39;e1071&#39;</code></pre>
-<pre><code>## The following object is masked from &#39;package:Hmisc&#39;:
+## Attaching package: &#39;caret&#39;</code></pre>
+<pre><code>## The following object is masked from &#39;package:purrr&#39;:
 ## 
-##     impute</code></pre>
+##     lift</code></pre>
 <pre><code>## [1] 936  15</code></pre>
 <pre><code>## [1] 655  15</code></pre>
 <pre><code>## [1] 281  15</code></pre>
@@ -761,7 +779,7 @@ head(beercombined_ale)</code></pre>
 <pre><code>## plot: [2,5] [========================&gt;-------------------------------------] 40% est: 1s</code></pre>
 <pre><code>## Warning in ggally_statistic(data = data, mapping = mapping, na.rm = na.rm, : Removed 8 rows
 ## containing missing values</code></pre>
-<pre><code>## plot: [3,1] [==========================&gt;-----------------------------------] 44% est: 1s
+<pre><code>## plot: [3,1] [==========================&gt;-----------------------------------] 44% est: 0s
 ## plot: [3,2] [=============================&gt;--------------------------------] 48% est: 0s
 ## plot: [3,3] [===============================&gt;------------------------------] 52% est: 0s
 ## plot: [3,4] [==================================&gt;---------------------------] 56% est: 0s</code></pre>
